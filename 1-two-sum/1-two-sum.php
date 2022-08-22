@@ -1,10 +1,5 @@
 class Solution {
 
-    /**
-     * @param Integer[] $nums
-     * @param Integer $target
-     * @return Integer[]
-     */
     function twoSum($nums, $target) {
         $sum = 0;
         $number1 = 0;
