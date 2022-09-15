@@ -37,31 +37,54 @@
 // };
 
 
+// class Solution {
+// public:
+//     vector<int> findOriginalArray(vector<int>& changed) {
+//         if(changed.size() % 2 == 1) return {}; 
+//         vector<int> rets;   // odds firstly
+//         multiset<int> evens;
+//         for(int x: changed) {
+//             if(x % 2 == 0) evens.insert(x);
+//             else rets.push_back(x);
+//         }
+//         int m = rets.size();
+//         for(int i = 0; i < m; ++i) {
+//             int cur = rets[i];
+//             auto it = evens.lower_bound(2 * cur);
+//             if(it == evens.end() || *it != 2 * cur) return {};
+//             evens.erase(it);
+//         }
+//         while(!evens.empty()) {
+//             int cur = *evens.begin();
+//             evens.erase(evens.begin());
+//             auto it = evens.lower_bound(2 * cur);
+//             if(it == evens.end() || *it != 2 * cur) return {};
+//             rets.push_back(cur);
+//             evens.erase(it);
+//         }
+//         return rets;
+//     }
+// };
+
+
 class Solution {
 public:
     vector<int> findOriginalArray(vector<int>& changed) {
-        if(changed.size() % 2 == 1) return {}; 
-        vector<int> rets;   // odds firstly
-        multiset<int> evens;
-        for(int x: changed) {
-            if(x % 2 == 0) evens.insert(x);
-            else rets.push_back(x);
+        unordered_map<int, int> doubled;
+        vector<int> res;
+        sort(changed.rbegin(), changed.rend());
+        for (int c : changed) {
+            if (doubled[c * 2] > 0) {
+                res.push_back(c);
+                doubled[c * 2]--;
+            } else {                
+                doubled[c] ++;
+            }
         }
-        int m = rets.size();
-        for(int i = 0; i < m; ++i) {
-            int cur = rets[i];
-            auto it = evens.lower_bound(2 * cur);
-            if(it == evens.end() || *it != 2 * cur) return {};
-            evens.erase(it);
+        int sz = changed.size();
+        if (sz % 2 == 1) {
+            sz++;
         }
-        while(!evens.empty()) {
-            int cur = *evens.begin();
-            evens.erase(evens.begin());
-            auto it = evens.lower_bound(2 * cur);
-            if(it == evens.end() || *it != 2 * cur) return {};
-            rets.push_back(cur);
-            evens.erase(it);
-        }
-        return rets;
+        return res.size() == (sz / 2) ? res : vector<int>();
     }
 };
