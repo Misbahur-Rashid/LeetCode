@@ -23,29 +23,55 @@
 //         return ans;
 //     }
 // };
+// class Solution {
+// public:
+//     string reverseWords(string s) {
+
+//         vector<string> words;
+//         int start = 0;
+//         for(int i = start + 1; i <= s.size(); )
+//             if(i == s.size() || s[i] == ' '){
+//                 words.push_back(s.substr(start, i - start));
+//                 reverse(words.back().begin(), words.back().end());
+//                 start = i + 1;
+//                 i = start + 1;
+//             }
+//             else
+//                 i ++;
+
+//         if(words.size() == 0)
+//             return "";
+
+//         string res = words[0];
+//         for(int i = 1;  i < words.size() ; i ++)
+//             res += " " + words[i];
+
+//         return res;
+//     }
+// };
+
+
+
 class Solution {
 public:
     string reverseWords(string s) {
 
-        vector<string> words;
         int start = 0;
         for(int i = start + 1; i <= s.size(); )
             if(i == s.size() || s[i] == ' '){
-                words.push_back(s.substr(start, i - start));
-                reverse(words.back().begin(), words.back().end());
+                reverse(s, start, i - 1);
                 start = i + 1;
                 i = start + 1;
             }
             else
                 i ++;
+        return s;
+    }
 
-        if(words.size() == 0)
-            return "";
-
-        string res = words[0];
-        for(int i = 1;  i < words.size() ; i ++)
-            res += " " + words[i];
-
-        return res;
+private:
+    void reverse(string& s, int start, int end){
+        for(int i = start, j = end; i < j; i ++, j --)
+            swap(s[i], s[j]);
     }
 };
+
