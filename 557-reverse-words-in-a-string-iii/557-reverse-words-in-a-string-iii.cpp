@@ -52,26 +52,52 @@
 
 
 
+// class Solution {
+// public:
+//     string reverseWords(string s) {
+
+//         int start = 0;
+//         for(int i = start + 1; i <= s.size(); )
+//             if(i == s.size() || s[i] == ' '){
+//                 reverse(s, start, i - 1);
+//                 start = i + 1;
+//                 i = start + 1;
+//             }
+//             else
+//                 i ++;
+//         return s;
+//     }
+
+// private:
+//     void reverse(string& s, int start, int end){
+//         for(int i = start, j = end; i < j; i ++, j --)
+//             swap(s[i], s[j]);
+//     }
+// };
+
+
+
+
+
 class Solution {
 public:
+    // Time: O(N), Space: O(1)
     string reverseWords(string s) {
-
-        int start = 0;
-        for(int i = start + 1; i <= s.size(); )
-            if(i == s.size() || s[i] == ' '){
-                reverse(s, start, i - 1);
-                start = i + 1;
-                i = start + 1;
+        int i=0;
+        for(int i=0; i<s.length(); i++) {
+            int j=i;
+            while(j<s.length() && s[j] != ' ')
+                ++j;
+            
+            int k=j;
+            --j;
+            while(i<j) {
+                swap(s[i], s[j]);
+                ++i;
+                --j;
             }
-            else
-                i ++;
+            i = k;
+        }
         return s;
     }
-
-private:
-    void reverse(string& s, int start, int end){
-        for(int i = start, j = end; i < j; i ++, j --)
-            swap(s[i], s[j]);
-    }
 };
-
