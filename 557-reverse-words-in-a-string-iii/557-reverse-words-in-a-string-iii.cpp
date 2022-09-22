@@ -1,25 +1,51 @@
+// class Solution {
+// public:
+//     string reverseWords(string s) {
+//         vector<string> v;
+//         string ans="";
+//         string temp="";
+        
+//         for(int i =0;i<=s.length();i++){
+//             if(s[i]!=' '&& s[i]!='\0')temp+=s[i];
+//             else{
+                
+//                 reverse(temp.begin(), temp.end());
+//                 // cout<<temp<<" ";
+//                 v.push_back(temp);
+//                 temp ="";
+//             }
+            
+//         }
+//         for(int i=0;i<v.size();i++){
+//             ans+=v[i];
+//             if(i!=v.size()-1)ans+=" ";
+//         }
+//         return ans;
+//     }
+// };
 class Solution {
 public:
     string reverseWords(string s) {
-        vector<string> v;
-        string ans="";
-        string temp="";
-        
-        for(int i =0;i<=s.length();i++){
-            if(s[i]!=' '&& s[i]!='\0')temp+=s[i];
-            else{
-                
-                reverse(temp.begin(), temp.end());
-                // cout<<temp<<" ";
-                v.push_back(temp);
-                temp ="";
+
+        vector<string> words;
+        int start = 0;
+        for(int i = start + 1; i <= s.size(); )
+            if(i == s.size() || s[i] == ' '){
+                words.push_back(s.substr(start, i - start));
+                reverse(words.back().begin(), words.back().end());
+                start = i + 1;
+                i = start + 1;
             }
-            
-        }
-        for(int i=0;i<v.size();i++){
-            ans+=v[i];
-            if(i!=v.size()-1)ans+=" ";
-        }
-        return ans;
+            else
+                i ++;
+
+        if(words.size() == 0)
+            return "";
+
+        string res = words[0];
+        for(int i = 1;  i < words.size() ; i ++)
+            res += " " + words[i];
+
+        return res;
     }
 };
