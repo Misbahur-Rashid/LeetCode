@@ -81,27 +81,66 @@
 
 
 
+// class Solution {
+// public:
+//     vector<vector<int> > pathSum(TreeNode *root, int sum) {
+//         vector<vector<int> > result;
+//         vector<int> v;
+//         generatePathSum(root, sum, 0, v, result);
+//         return result;
+//     }
+
+//     void generatePathSum(TreeNode *root, int sum, int s, vector<int> v, vector<vector<int> >& result) {
+//         if (root==NULL) return ;
+
+//         s += root->val;
+//         v.push_back(root->val);
+
+//         if ( root->left==NULL && root->right==NULL) {
+//             if (s == sum) result.push_back(v);
+//             return;
+//         }
+
+//         generatePathSum(root->left, sum, s, v, result);
+//         generatePathSum(root->right, sum, s, v, result);
+//     }
+// };
+
+
 class Solution {
+
 public:
-    vector<vector<int> > pathSum(TreeNode *root, int sum) {
-        vector<vector<int> > result;
-        vector<int> v;
-        generatePathSum(root, sum, 0, v, result);
-        return result;
+    vector<vector<int>> pathSum(TreeNode* root, int sum) {
+
+        vector<vector<int>> res;
+        if(!root)
+            return res;
+
+        vector<int> tres;
+        dfs(root, tres, 0, sum, res);
+        return res;
     }
 
-    void generatePathSum(TreeNode *root, int sum, int s, vector<int> v, vector<vector<int> >& result) {
-        if (root==NULL) return ;
+private:
+    void dfs(TreeNode* node, vector<int>& tres, int tsum,
+             int sum, vector<vector<int>>& res){
 
-        s += root->val;
-        v.push_back(root->val);
+        tres.push_back(node->val);
+        tsum += node->val;
 
-        if ( root->left==NULL && root->right==NULL) {
-            if (s == sum) result.push_back(v);
-            return;
+        if(!node->left && !node->right){
+            if(tsum == sum)
+                res.push_back(tres);
+        }
+        else {
+            if (node->left)
+                dfs(node->left, tres, tsum, sum, res);
+
+            if (node->right)
+                dfs(node->right, tres, tsum, sum, res);
         }
 
-        generatePathSum(root->left, sum, s, v, result);
-        generatePathSum(root->right, sum, s, v, result);
+        tres.pop_back();
+        return;
     }
 };
