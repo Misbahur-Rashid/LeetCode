@@ -38,43 +38,70 @@
 
 
 
+// class Solution {
+// public:
+//     vector<vector<int>> ans;
+//     int sum;
+    
+//     void backtrack(TreeNode* cur, vector<int>& path){
+//         //cur must not be nullptr
+//         //when entering this function, cur is added in "path"
+//         if(!cur->left && !cur->right){
+//             // for(const int& e : path) cout << e << " ";
+//             // cout << endl;
+//             if(accumulate(path.begin(), path.end(), 0) == sum){
+//                 ans.push_back(path);
+//             }
+//         }else{
+//             if(cur->left){
+//                 path.push_back(cur->left->val);
+//                 backtrack(cur->left, path);
+//                 path.pop_back();
+//             }
+            
+//             if(cur->right){
+//                 path.push_back(cur->right->val);
+//                 backtrack(cur->right, path);
+//                 path.pop_back();
+//             }
+//         }
+//     }
+    
+//     vector<vector<int>> pathSum(TreeNode* root, int sum) {
+//         if(!root) return vector<vector<int>>();
+        
+//         this->sum = sum;
+        
+//         vector<int> path = {root->val};
+//         backtrack(root, path);
+        
+//         return ans;
+//     }
+// };
+
+
+
 class Solution {
 public:
-    vector<vector<int>> ans;
-    int sum;
-    
-    void backtrack(TreeNode* cur, vector<int>& path){
-        //cur must not be nullptr
-        //when entering this function, cur is added in "path"
-        if(!cur->left && !cur->right){
-            // for(const int& e : path) cout << e << " ";
-            // cout << endl;
-            if(accumulate(path.begin(), path.end(), 0) == sum){
-                ans.push_back(path);
-            }
-        }else{
-            if(cur->left){
-                path.push_back(cur->left->val);
-                backtrack(cur->left, path);
-                path.pop_back();
-            }
-            
-            if(cur->right){
-                path.push_back(cur->right->val);
-                backtrack(cur->right, path);
-                path.pop_back();
-            }
-        }
+    vector<vector<int> > pathSum(TreeNode *root, int sum) {
+        vector<vector<int> > result;
+        vector<int> v;
+        generatePathSum(root, sum, 0, v, result);
+        return result;
     }
-    
-    vector<vector<int>> pathSum(TreeNode* root, int sum) {
-        if(!root) return vector<vector<int>>();
-        
-        this->sum = sum;
-        
-        vector<int> path = {root->val};
-        backtrack(root, path);
-        
-        return ans;
+
+    void generatePathSum(TreeNode *root, int sum, int s, vector<int> v, vector<vector<int> >& result) {
+        if (root==NULL) return ;
+
+        s += root->val;
+        v.push_back(root->val);
+
+        if ( root->left==NULL && root->right==NULL) {
+            if (s == sum) result.push_back(v);
+            return;
+        }
+
+        generatePathSum(root->left, sum, s, v, result);
+        generatePathSum(root->right, sum, s, v, result);
     }
 };
