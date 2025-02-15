@@ -1,6 +1,7 @@
-<h2><a href="https://leetcode.com/problems/not-boring-movies/">620. Not Boring Movies</a></h2><h3>Easy</h3><hr><div class="sql-schema-wrapper__3VBi"><a class="sql-schema-link__3cEg">SQL Schema<svg viewBox="0 0 24 24" width="1em" height="1em" class="icon__1Md2"><path fill-rule="evenodd" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></a></div><div><p>Table: <code>Cinema</code></p>
+<h2><a href="https://leetcode.com/problems/not-boring-movies">Not Boring Movies</a></h2> <img src='https://img.shields.io/badge/Difficulty-Easy-brightgreen' alt='Difficulty: Easy' /><hr><p>Table: <code>Cinema</code></p>
 
-<pre>+----------------+----------+
+<pre>
++----------------+----------+
 | Column Name    | Type     |
 +----------------+----------+
 | id             | int      |
@@ -8,23 +9,24 @@
 | description    | varchar  |
 | rating         | float    |
 +----------------+----------+
-id is the primary key for this table.
+id is the primary key (column with unique values) for this table.
 Each row contains information about the name of a movie, its genre, and its rating.
 rating is a 2 decimal places float in the range [0, 10]
 </pre>
 
 <p>&nbsp;</p>
 
-<p>Write an SQL query to report the movies with an odd-numbered ID and a description that is not <code>"boring"</code>.</p>
+<p>Write a solution to report the movies with an odd-numbered ID and a description that is not <code>&quot;boring&quot;</code>.</p>
 
 <p>Return the result table ordered by <code>rating</code> <strong>in descending order</strong>.</p>
 
-<p>The query result format is in the following example.</p>
+<p>The&nbsp;result format is in the following example.</p>
 
 <p>&nbsp;</p>
-<p><strong>Example 1:</strong></p>
+<p><strong class="example">Example 1:</strong></p>
 
-<pre><strong>Input:</strong> 
+<pre>
+<strong>Input:</strong> 
 Cinema table:
 +----+------------+-------------+--------+
 | id | movie      | description | rating |
@@ -45,4 +47,3 @@ Cinema table:
 <strong>Explanation:</strong> 
 We have three movies with odd-numbered IDs: 1, 3, and 5. The movie with ID = 3 is boring so we do not include it in the answer.
 </pre>
-</div>
